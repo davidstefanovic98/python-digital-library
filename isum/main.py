@@ -1,4 +1,5 @@
 import json
+import os
 import re
 from itertools import islice
 import pandas as pd
@@ -99,7 +100,7 @@ def main():
         r"(\?|\s*\(Coords.\)|\s+\(view affiliations\)|\s*adapt by\s+|\s*By\s+|\t)")
 
     sql = ""
-    df = pd.read_csv("data.csv", header=1)
+    df = pd.read_csv("isum/data.csv", header=1)
     iterator = islice(df.iterrows(), 0, None)
 
     category = None
@@ -133,7 +134,7 @@ def main():
                 "Link do knjige": []
             }
             for tag in split_pattern.split(str(row["Tagovi"])):
-                tag = clean_pattern.sub("", tag.strip(" \n\t\r"))
+                tag = clean_pattern_for_subcategory.sub("", tag.strip(" \n\t\r"))
                 if tag != "," and tag != "":
                     data[strindex]["Tagovi"].append(tag)
                     tags.add(tag)
@@ -212,7 +213,7 @@ def main():
             for subcategory in row["Potkategorija"]:
                 sql += (book_category_format_sql(int(i), categories.get(f'{subcategory}')["id"] + 1))
 
-    with open("lib.sql", "w", encoding="utf-8") as file:
+    with open("isum/lib.sql", "w", encoding="utf-8") as file:
         file.write(sql)
 
 
