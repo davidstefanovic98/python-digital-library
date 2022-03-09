@@ -1,9 +1,6 @@
 import json
 import re
 from itertools import islice
-from flask import Flask, request
-
-import requests as req
 import pandas as pd
 
 
@@ -93,7 +90,7 @@ def digital_lib_file_format_sql(id, book_id, file_name, alfresco_id, alfresco_li
 
 def main():
     split_pattern = re.compile(r"\s*([,\n·]+|\s+y\s+|\s+and\s+|\s+&\s+)\s*")
-    split_pattern_for_publisher = re.compile(r"\s*([,\n·]+|\s+y\s+|\s+and\s+)\s*")
+    split_pattern_for_publisher = re.compile(r"\s*([,\n·]+|\s+y\s+|\s+)\s*")
     clean_pattern = re.compile(
         r"(\(?\s*-?\s*\b[eE]ds?(itors?:?)?\.?\)?|\s*\(Coords.\)|\s+\(view affiliations\)|\s*adapt by\s+|\s*By\s+|\s*and\s+|\t)")
     clean_pattern_for_category = re.compile(
@@ -144,13 +141,13 @@ def main():
             if not pd.isna(row["Autor"]):
                 for author in split_pattern.split(str(row["Autor"])):
                     author = clean_pattern.sub("", author.strip(" \n\t\r"))
-                    if author != "" and author != "y" and author != "," and author != "and":
+                    if author != "" and author != "y" and author != "," and author != "and" and author != "/":
                         data[strindex]["Autor"].append(author)
                         authors.add(author)
 
-            for publisher in split_pattern_for_publisher.split(str(row["Izdavac"])):
+            for publisher in split_pattern.split(str(row["Izdavac"])):
                 publisher = clean_pattern.sub("", publisher.strip(" \n\t\r"))
-                if publisher != "" and publisher != ",":
+                if publisher != "" and publisher != "," and publisher != "and" and publisher != "&":
                     data[strindex]["Izdavac"].append(publisher)
                     publishers.add(publisher)
 
@@ -205,11 +202,11 @@ def main():
         if not are_columns_null(row):
             sql += format_sql(int(i), row)
             for author in row["Autor"]:
-                sql += (book_author_format_sql(int(i), list(authors).index(author)))
+                sql += (book_author_format_sql(int(i), list(authors).index(author) + 1))
             for tag in row["Tagovi"]:
-                sql += (book_tag_format_sql(int(i), list(tags).index(tag)))
+                sql += (book_tag_format_sql(int(i), list(tags).index(tag) + 1))
             for publisher in row["Izdavac"]:
-                sql += (book_publisher_format_sql(int(i), list(publishers).index(publisher)))
+                sql += (book_publisher_format_sql(int(i), list(publishers).index(publisher) + 1))
             for category in row["Kategorija"]:
                 sql += (book_category_format_sql(int(i), list(categories).index(category) + 1))
             for subcategory in row["Potkategorija"]:
@@ -217,7 +214,6 @@ def main():
 
     with open("lib.sql", "w", encoding="utf-8") as file:
         file.write(sql)
-
 
 
 if __name__ == '__main__':
