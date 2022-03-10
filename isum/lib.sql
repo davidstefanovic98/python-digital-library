@@ -3988,6 +3988,10 @@ insert into digital_lib_category (digital_lib_category_id, name) values (40,'Eng
 insert into digital_lib_category (digital_lib_category_id, name) values (41,'Web Design');
 insert into digital_lib_category (digital_lib_category_id, name) values (42,'Software Testing');
 insert into digital_lib_category (digital_lib_category_id, name) values (43,'Agile SW development');
+insert into digital_lib_category (digital_lib_category_id, name) values (44,'Accounting');
+insert into digital_lib_category (digital_lib_category_id, name) values (45,'FIT');
+insert into digital_lib_category (digital_lib_category_id, name) values (46,'FAM');
+insert into digital_lib_category (digital_lib_category_id, name) values (47,'FDU');
 insert into digital_lib_subcategory (digital_lib_subcategory_id, parent_digital_lib_category_fk, child_digital_lib_category_fk) values (1,6,8);
 insert into digital_lib_subcategory (digital_lib_subcategory_id, parent_digital_lib_category_fk, child_digital_lib_category_fk) values (2,6,9);
 insert into digital_lib_subcategory (digital_lib_subcategory_id, parent_digital_lib_category_fk, child_digital_lib_category_fk) values (3,3,10);
@@ -4022,6 +4026,13 @@ insert into digital_lib_subcategory (digital_lib_subcategory_id, parent_digital_
 insert into digital_lib_subcategory (digital_lib_subcategory_id, parent_digital_lib_category_fk, child_digital_lib_category_fk) values (32,6,41);
 insert into digital_lib_subcategory (digital_lib_subcategory_id, parent_digital_lib_category_fk, child_digital_lib_category_fk) values (33,6,42);
 insert into digital_lib_subcategory (digital_lib_subcategory_id, parent_digital_lib_category_fk, child_digital_lib_category_fk) values (34,6,43);
+insert into digital_lib_subcategory (digital_lib_subcategory_id, parent_digital_lib_category_fk, child_digital_lib_category_fk) values (35,3,44);
+insert into digital_lib_subcategory (digital_lib_subcategory_id, parent_digital_lib_category_fk, child_digital_lib_category_fk) values (36,46,3);
+insert into digital_lib_subcategory (digital_lib_subcategory_id, parent_digital_lib_category_fk, child_digital_lib_category_fk) values (37,47,1);
+insert into digital_lib_subcategory (digital_lib_subcategory_id, parent_digital_lib_category_fk, child_digital_lib_category_fk) values (38,47,2);
+insert into digital_lib_subcategory (digital_lib_subcategory_id, parent_digital_lib_category_fk, child_digital_lib_category_fk) values (39,45,4);
+insert into digital_lib_subcategory (digital_lib_subcategory_id, parent_digital_lib_category_fk, child_digital_lib_category_fk) values (40,45,5);
+insert into digital_lib_subcategory (digital_lib_subcategory_id, parent_digital_lib_category_fk, child_digital_lib_category_fk) values (41,45,6);
 insert into digital_lib_book (digital_lib_book_id, title, description, issue_year) values (1,'Authoring Collaborative Multiplayer Games Game Design Patterns, Structural Verification, Collaboratice Balancing and Rapid Prototyping','This thesis aims at supporting those developers by conceptualizing an authoring environment that addresses these issues. Its overall concept consists of three steps or four modules: Game design patterns as player interaction templates, a formal analysis concerning structural errors and collaborative balancing as well as a rapid prototyping environment.',2016);
 insert into digital_lib_book_author (digital_lib_book_fk, digital_lib_author_fk) values (1,966);
 insert into digital_lib_book_tag (digital_lib_book_fk, digital_lib_tag_fk) values (1,2454);
